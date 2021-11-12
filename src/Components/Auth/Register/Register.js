@@ -33,6 +33,7 @@ const Register = () => {
     }
     const name = registerData.displayName;
     const email = registerData.email;
+    // console.log(email, password, name);
     register(email, password, name, histoty, location);
     e.preventDefault();
   };

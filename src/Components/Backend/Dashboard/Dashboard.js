@@ -6,33 +6,38 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
 import PostAddIcon from "@mui/icons-material/PostAdd";
-import {
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Link, useRouteMatch, Route } from "react-router-dom";
 import DashboardHome from "./DashboardHome";
+import AddServices from "../Services/AddServices";
+import useAuth from "../../../hooks/Firebase/useAuth";
+import { Button } from "@mui/material";
+import AdminRoute from "../../../PrivetRoute/AdminRoute";
+import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import Services from "../Services/Services";
+import MakeAdmin from "../Admin/MakeAdmin";
+import "./Dashboard.css";
+import MyOrders from "../MyOrder/MyOrders";
 const drawerWidth = 240;
 
 function Dashboard(props) {
   let { path, url } = useRouteMatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const { LogOut, admin } = useAuth();
+  const handelLogout = () => {
+    LogOut();
+  };
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -59,13 +64,69 @@ function Dashboard(props) {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <PostAddIcon />
+            <HomeIcon />
             <ListItemText
               as={Link}
-              to={`${url}/add/services`}
-              primary="Add Services"
+              to={`${url}/myorder`}
+              primary="My-Order"
               sx={{ ml: 1 }}
             ></ListItemText>
+          </ListItemIcon>
+        </ListItem>
+        {admin && (
+          <Box>
+            <ListItem>
+              <ListItemIcon>
+                <AdminPanelSettingsIcon />
+                <ListItemText
+                  as={Link}
+                  to={`${url}/make/admin`}
+                  primary="Make Admin"
+                  sx={{ ml: 1 }}
+                ></ListItemText>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <InsertInvitationIcon />
+                <ListItemText
+                  as={Link}
+                  to={`${url}/services`}
+                  primary="Services"
+                  sx={{ ml: 1 }}
+                ></ListItemText>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <PostAddIcon />
+                <ListItemText
+                  as={Link}
+                  to={`${url}/add/services`}
+                  primary="Add Services"
+                  sx={{ ml: 1 }}
+                ></ListItemText>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <PostAddIcon />
+                <ListItemText
+                  as={Link}
+                  to={`${url}/orders`}
+                  primary="Orders"
+                  sx={{ ml: 1 }}
+                ></ListItemText>
+              </ListItemIcon>
+            </ListItem>
+          </Box>
+        )}
+        <ListItem>
+          <ListItemIcon>
+            <LogoutIcon />
+            <Button onClick={handelLogout} sx={{ ml: 1 }}>
+              LogOut
+            </Button>
           </ListItemIcon>
         </ListItem>
       </List>
@@ -74,7 +135,6 @@ function Dashboard(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -83,6 +143,7 @@ function Dashboard(props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          zIndex: 1,
         }}
       >
         <Toolbar>
@@ -149,8 +210,27 @@ function Dashboard(props) {
         <Toolbar />
         <Switch>
           <Route exact path={path}>
-            <DashboardHome />
+            {(admin && <h1>Admin Dashboard</h1>) || <DashboardHome />}
           </Route>
+
+          <AdminRoute exact path={`${path}/services`}>
+            <Services />
+          </AdminRoute>
+          <AdminRoute exact path={`${path}/add/services`}>
+            <AddServices />
+          </AdminRoute>
+          <AdminRoute exact path={`${path}/make/admin`}>
+            <MakeAdmin />
+          </AdminRoute>
+          <Route exact path={`${path}/myorder`}>
+            <MyOrders />
+          </Route>
+          <AdminRoute exact path={`${path}/orders`}>
+            <h1>Order Page</h1>
+          </AdminRoute>
+          <AdminRoute exact path={`${path}/order/review`}>
+            <h1>Order Page</h1>
+          </AdminRoute>
         </Switch>
       </Box>
     </Box>

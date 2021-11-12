@@ -3,22 +3,28 @@ import Login from "./Components/Auth/Login/Login";
 import Register from "./Components/Auth/Register/Register";
 import Dashboard from "./Components/Backend/Dashboard/Dashboard";
 import Home from "./Components/Frontend/Home/Home";
+import ServicesPage from "./Components/Frontend/ServicePage/ServicesPage";
 import AuthProvider from "./Contexts/AuthProvider/AuthProvider";
+import PrivetRoute from "./PrivetRoute/PrivetRoute";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Switch>
-          <Route path="/dashboard">
+          <PrivetRoute path="/dashboard">
             <Dashboard />
-          </Route>
+          </PrivetRoute>
           <Route exact path="/">
             <Home />
           </Route>
           <Route exact path="/home">
             <Home />
           </Route>
+          <Route exact path="/services">
+            <ServicesPage />
+          </Route>
+          
           <Route exact path="/register">
             <Register />
           </Route>

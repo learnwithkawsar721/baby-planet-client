@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import getUrl from "../../../Utilits/getUrl";
 import Service from "../Service/Service";
+import Navication from "../Shared/Navication/Navication";
 
-const Services = () => {
+const ServicesPage = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
     const url = getUrl("services");
@@ -11,17 +12,19 @@ const Services = () => {
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
-  
   return (
-    <Container className="mt-5">
-      <Row className="g-3">
-        <h3 className="text-center">Baby Accessories</h3>
-        {services.slice(0,6).map((service, index) => (
-          <Service service={service} key={index} />
-        ))}
-      </Row>
-    </Container>
+    <>
+      <Navication />
+      <Container>
+        <Row>
+          <h1 className="text-center my-5">Baby Accessories</h1>
+          {services.map((service, index) => (
+            <Service service={service} key={index} />
+          ))}
+        </Row>
+      </Container>
+    </>
   );
 };
 
-export default Services;
+export default ServicesPage;

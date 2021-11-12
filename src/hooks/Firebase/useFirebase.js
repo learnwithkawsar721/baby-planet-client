@@ -15,6 +15,7 @@ const useFirebase = () => {
   const [user, setUser] = useState({});
   const [firebaseError, setError] = useState("");
   const [isLoding, setIsLoding] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const auth = getAuth();
 
   // saveUser in Database
@@ -42,7 +43,9 @@ const useFirebase = () => {
         // Signed in
         const user = userCredential.user;
         setUser(user);
-        saveUser(user.displayName, user.email);
+        saveUser(name, email);
+        const rediract = location.state?.from || "/";
+        histoty.replace(rediract);
         updateProfile(auth.currentUser, {
           displayName: name,
         })
@@ -56,8 +59,6 @@ const useFirebase = () => {
       .finally(() => {
         setIsLoding(false);
         Notification("success", "User Registation Successfully");
-        const rediract = location.state?.from || "/";
-        histoty.replace(rediract);
       });
   };
 
@@ -67,6 +68,8 @@ const useFirebase = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
+        const rediract = location.state?.from || "/";
+        histoty.replace(rediract);
       })
       .catch((error) => {
         setError(error.message);
@@ -74,8 +77,6 @@ const useFirebase = () => {
       .finally(() => {
         setIsLoding(false);
         Notification("success", "Login Successfully");
-        const rediract = location.state?.from || "/";
-        histoty.replace(rediract);
       });
   };
 
@@ -91,6 +92,20 @@ const useFirebase = () => {
     return unsubscriber;
   }, [auth]);
 
+  //
+  useEffect(() => {
+    const url = getUrl(`users/${user.email}`);
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.role === "Admin") {
+          setAdmin(true);
+        } else {
+          setAdmin(false);
+        }
+      });
+  }, [user]);
+
   //LogOut User
   const LogOut = () => {
     signOut(auth).then(() => {
@@ -104,6 +119,7 @@ const useFirebase = () => {
     LogOut,
     isLoding,
     login,
+    admin,
   };
 };
 

@@ -21,6 +21,9 @@ const Navication = () => {
             <Nav.Link as={Link} to="/home">
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to="/services">
+              Services
+            </Nav.Link>
 
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
@@ -42,6 +45,9 @@ const Navication = () => {
               <>
                 <Nav.Link as={Link} to="/dashboard">
                   Dashboard
+                </Nav.Link>
+                <Nav.Link >
+                  {user?.displayName}
                 </Nav.Link>
                 <Button onClick={LogOut}>Logout</Button>
               </>

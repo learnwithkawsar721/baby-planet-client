@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-expressions */
+import React, { useEffect, useState } from "react";
 import {
   Col,
   Container,
@@ -14,7 +15,7 @@ import useAuth from "../../../hooks/Firebase/useAuth";
 import Navication from "../../Frontend/Shared/Navication/Navication";
 
 const Login = () => {
-  const { login, isLoding } = useAuth();
+  const { login, isLoding, user } = useAuth();
   const [registerData, setRegisterData] = useState({});
   const histoty = useHistory();
   const location = useLocation();
@@ -30,7 +31,10 @@ const Login = () => {
     login(email, password, histoty, location);
     e.preventDefault();
   };
-
+  const rediract = location.state?.from || "/";
+  useEffect(() => {
+    user?.email ? histoty.push(rediract) : "";
+  }, [user, histoty, rediract]);
   return (
     <>
       <Navication />
