@@ -11,12 +11,12 @@ const Services = () => {
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
-  
+
   return (
     <Container className="mt-5">
-      <Row className="g-3">
+      <Row className="g-4">
         <h3 className="text-center">Baby Accessories</h3>
-        {services.slice(0,6).map((service, index) => (
+        {services.slice(0, 6).map((service, index) => (
           <Service service={service} key={index} />
         ))}
       </Row>

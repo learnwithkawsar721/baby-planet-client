@@ -1,15 +1,20 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useAuth from "../../../../hooks/Firebase/useAuth";
 
 const Navication = () => {
   const { user, LogOut } = useAuth();
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
-          Navbar scroll
+          <img
+            src="https://i.ibb.co/yBY0Hk3/logo.png"
+            className="w-100"
+            style={{ height: "50px" }}
+            alt=""
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -18,35 +23,20 @@ const Navication = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/home">
+            <Nav.Link style={{ color: "#fff" }} as={Link} to="/home">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/services">
+            <Nav.Link style={{ color: "#fff" }} as={Link} to="/services">
               Services
-            </Nav.Link>
-
-            <Nav.Link href="#action2">Link</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Link
             </Nav.Link>
           </Nav>
           <div className="d-flex">
             {(user?.email && (
               <>
-                <Nav.Link as={Link} to="/dashboard">
+                <Nav.Link as={Link} to="/dashboard" style={{ color: "#fff" }}>
                   Dashboard
                 </Nav.Link>
-                <Nav.Link >
+                <Nav.Link style={{ color: "#fff" }}>
                   {user?.displayName}
                 </Nav.Link>
                 <Button onClick={LogOut}>Logout</Button>

@@ -66,9 +66,9 @@ const Services = () => {
                       style={{ height: "50px" }}
                     />
                   </td>
-                  <td>{service.title}</td>
+                  <td>{service.title.substring(1, 20)}...</td>
                   <td>
-                    {service.price} <sub>Tk</sub>{" "}
+                    ${service.price} 
                   </td>
                   <td>
                     <button

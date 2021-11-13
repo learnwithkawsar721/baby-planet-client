@@ -100,9 +100,7 @@ const useFirebase = () => {
       .then((data) => {
         if (data?.role === "Admin") {
           setAdmin(true);
-        } else {
-          setAdmin(false);
-        }
+        } 
       });
   }, [user]);
 

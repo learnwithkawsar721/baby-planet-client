@@ -4,6 +4,7 @@ import Register from "./Components/Auth/Register/Register";
 import Dashboard from "./Components/Backend/Dashboard/Dashboard";
 import Home from "./Components/Frontend/Home/Home";
 import ServicesPage from "./Components/Frontend/ServicePage/ServicesPage";
+import ServicesDetails from "./Components/Frontend/ServicesDetails/ServicesDetails";
 import AuthProvider from "./Contexts/AuthProvider/AuthProvider";
 import PrivetRoute from "./PrivetRoute/PrivetRoute";
 
@@ -21,10 +22,13 @@ function App() {
           <Route exact path="/home">
             <Home />
           </Route>
+          <PrivetRoute exact path="/service-details/:id">
+            <ServicesDetails />
+          </PrivetRoute>
           <Route exact path="/services">
             <ServicesPage />
           </Route>
-          
+
           <Route exact path="/register">
             <Register />
           </Route>

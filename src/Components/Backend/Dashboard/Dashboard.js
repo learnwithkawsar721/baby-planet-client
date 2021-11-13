@@ -28,6 +28,12 @@ import Services from "../Services/Services";
 import MakeAdmin from "../Admin/MakeAdmin";
 import "./Dashboard.css";
 import MyOrders from "../MyOrder/MyOrders";
+import MakeReview from "../MakeReview/MakeReview";
+import ManageOrders from "../MangeOrders/ManageOrders";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import BorderAllIcon from "@mui/icons-material/BorderAll";
+import StarHalfIcon from '@mui/icons-material/StarHalf';
 const drawerWidth = 240;
 
 function Dashboard(props) {
@@ -46,7 +52,7 @@ function Dashboard(props) {
     <div>
       <Toolbar>
         <Typography variant="a" as={Link} to="/home">
-          Admin
+          Client Site
         </Typography>
       </Toolbar>
       <Divider />
@@ -64,11 +70,33 @@ function Dashboard(props) {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <HomeIcon />
+            <ListAltIcon />
             <ListItemText
               as={Link}
               to={`${url}/myorder`}
               primary="My-Order"
+              sx={{ ml: 1 }}
+            ></ListItemText>
+          </ListItemIcon>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <AttachMoneyIcon />
+            <ListItemText
+              as={Link}
+              to={`${url}/pay`}
+              primary="pay"
+              sx={{ ml: 1 }}
+            ></ListItemText>
+          </ListItemIcon>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <StarHalfIcon />
+            <ListItemText
+              as={Link}
+              to={`${url}/reviews`}
+              primary="Reviews"
               sx={{ ml: 1 }}
             ></ListItemText>
           </ListItemIcon>
@@ -110,11 +138,11 @@ function Dashboard(props) {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <PostAddIcon />
+                <BorderAllIcon />
                 <ListItemText
                   as={Link}
                   to={`${url}/orders`}
-                  primary="Orders"
+                  primary="Manage-Orders"
                   sx={{ ml: 1 }}
                 ></ListItemText>
               </ListItemIcon>
@@ -212,25 +240,31 @@ function Dashboard(props) {
           <Route exact path={path}>
             {(admin && <h1>Admin Dashboard</h1>) || <DashboardHome />}
           </Route>
+          <Route exact path={`${path}/myorder`}>
+            <MyOrders />
+          </Route>
+          <Route exact path={`${path}/pay`}>
+            <h1>Payment system coming soon.</h1>
+          </Route>
 
-          <AdminRoute exact path={`${path}/services`}>
+          <Route exact path={`${path}/services`}>
             <Services />
-          </AdminRoute>
+          </Route>
           <AdminRoute exact path={`${path}/add/services`}>
             <AddServices />
           </AdminRoute>
           <AdminRoute exact path={`${path}/make/admin`}>
             <MakeAdmin />
           </AdminRoute>
-          <Route exact path={`${path}/myorder`}>
-            <MyOrders />
+          <Route exact path={`${path}/reviews`}>
+            <MakeReview />
           </Route>
           <AdminRoute exact path={`${path}/orders`}>
-            <h1>Order Page</h1>
+            <ManageOrders />
           </AdminRoute>
-          <AdminRoute exact path={`${path}/order/review`}>
+          {/* <AdminRoute exact path={`${path}/order/review`}>
             <h1>Order Page</h1>
-          </AdminRoute>
+          </AdminRoute> */}
         </Switch>
       </Box>
     </Box>

@@ -66,9 +66,18 @@ const AddServices = () => {
                 id="standard-basic"
                 label="Image Url"
                 variant="standard"
-                sx={{ width: "100%", mt: 1 }}
+                sx={{ width: "100%", my: 2 }}
                 onBlur={handleOnBlur}
                 name="img"
+              />
+              <TextField
+                label="Reviews messages"
+                multiline
+                maxRows={4}
+                fullWidth
+                style={{ margingTop: "10px" }}
+                name="message"
+                onChange={handleOnBlur}
               />
               <Button
                 variant="contained"
